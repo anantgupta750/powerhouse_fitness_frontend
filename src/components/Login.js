@@ -1,11 +1,48 @@
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import Navbar from "./Navbar";
+import { useState } from "react";
+import { useUser } from "../hooks/useUserRole";
 
 export const Login = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const { loggedIn } = useUser();
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e) => {
+    let { name, value} = e.target;
+    setForm((form) => ({ ...form, [name]: value }));
+  };
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://localhost:7255/api/Auth/login",
+        {
+          method: "POST",
+          body: JSON.stringify(form),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        alert("data submitted");
+        loggedIn(data.roleId);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      alert("failed to submit data");
+    }
+  };
   return (
     <>
       <Navbar />
-      <form>
+      <form onSubmit={onSubmitHandler}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-4">
@@ -22,6 +59,8 @@ export const Login = () => {
                       type="email"
                       className="form-control form-control-lg"
                       name="email"
+                      value={form["email"]}
+                      onChange={onChangeHandler}
                       required
                       email
                     />
@@ -36,6 +75,8 @@ export const Login = () => {
                       type="password"
                       className="form-control form-control-lg"
                       name="password"
+                      value={form.password}
+                      onChange={onChangeHandler}
                       required
                     />
                   </div>

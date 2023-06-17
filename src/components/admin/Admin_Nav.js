@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const AdminNav = () => {
   return (
     <>
@@ -25,9 +26,7 @@ const AdminNav = () => {
               <a className="nav-link active" href="#">
                 Membership List
               </a>
-              <a className="nav-link active" href="#">
-                Users List
-              </a>
+              <Link to="/userlist" className="nav-link active">User List</Link>
               <a className="nav-link active" href="#">
                 Program List
               </a>
