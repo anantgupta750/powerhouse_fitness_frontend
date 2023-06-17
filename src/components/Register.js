@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUserRole";
 import Navbar from "./Navbar";
 
 const Register = () => {
@@ -14,6 +15,9 @@ const Register = () => {
     address: "",
     roleId: 2,
   });
+
+  const { loggedIn } = useUser();
+  const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     let { name, value, type } = e.target;
@@ -36,9 +40,11 @@ const Register = () => {
           },
         }
       );
-
+      const data = response.json();
       if (response.ok) {
         alert("data submitted");
+        loggedIn(data.roleId);
+        navigate("/dashboard");
       }
     } catch (error) {
       alert("failed to submit data");
