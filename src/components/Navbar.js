@@ -1,6 +1,6 @@
 import './css/Navbar.css'
 import Login from './Login';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+// import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 const Navbar = (props) => {
     return (

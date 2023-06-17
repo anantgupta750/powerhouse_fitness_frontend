@@ -10,7 +10,7 @@ const Register = () => {
     password: "",
     joinDate: new Date(),
     dateOfBirth: "",
-    contactNumber: "",
+    phoneNumber: "",
     address: "",
     roleId: 2,
   });
@@ -26,10 +26,16 @@ const Register = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("url to be added", {
-        method: "GET",
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        "https://localhost:7255/api/Auth/Registration",
+        {
+          method: "POST",
+          body: JSON.stringify(form),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         alert("data submitted");
@@ -180,8 +186,8 @@ const Register = () => {
                       placeholder="123-45-678"
                       maxLength={10}
                       className="form-control form-control-lg"
-                      name="contactNumber"
-                      value={form.contactNumber}
+                      name="phoneNumber"
+                      value={form.phoneNumber}
                       onChange={onChangeHandler}
                       required
                     />
