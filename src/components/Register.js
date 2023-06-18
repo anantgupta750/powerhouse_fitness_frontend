@@ -46,6 +46,9 @@ const Register = () => {
         loggedIn(data.roleId);
         navigate("/dashboard");
       }
+      else{
+        alert("User already exists");
+      }
     } catch (error) {
       alert("failed to submit data");
     }

@@ -1,11 +1,9 @@
 import AdminNav from "./Admin_Nav";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useUser } from "../hooks/useUserRole";
 
 const Userlist = () => {
   const [userData, setUserData] = useState(null);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,34 +27,29 @@ const Userlist = () => {
     fetchData();
   }, []);
 
-  //     return (
-  //       <>
-  //         <AdminNav />
-
-  //         {userData ? (
-  //           <div className="container py-5">
-  //             <h3>User Data</h3>
-  //             <ul>
-  //               <li>First Name: {userData.firstName}</li>
-  //               <li>Last Name: {userData.lastName}</li>
-  //               <li>Email: {userData.email}</li>
-  //             </ul>
-  //           </div>
-  //         ) : (
-  //           <div>Loading...</div>
-  //         )}
-
-  //         <div className="text-center">
-  //           <Link to="/dashboard">Go back to dashboard</Link>
-  //         </div>
-  //       </>
-  //     );
-  //   };
+  const deleteUser = async (userId) => {
+    try {
+      const response = await fetch(`https://localhost:7255/api/Users/${userId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        alert("User deleted successfully");
+        setUserData(userData.filter((user) => user.userId !== userId));
+      } else {
+        alert("Failed to delete user");
+      }
+    } catch (error) {
+      alert("Failed to delete user");
+    }
+  };
 
   return (
     <>
       <AdminNav />
-      <table class="container table table-striped ">
+      <table className="container table table-striped ">
         <thead>
           <tr>
             <th scope="col">UserId</th>
@@ -65,6 +58,7 @@ const Userlist = () => {
             <th scope="col">Phone No.</th>
             <th scope="col">Gender</th>
             <th scope="col">Join Date</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         {userData !== null &&
@@ -79,6 +73,9 @@ const Userlist = () => {
                 <td>{user.phoneNumber}</td>
                 <td>{user.gender}</td>
                 <td>{user.joinDate}</td>
+                <td>
+                  <button onClick={() => deleteUser(user.userId)}>Delete</button>
+                </td>
               </tr>
             </tbody>
           ))}
@@ -86,4 +83,5 @@ const Userlist = () => {
     </>
   );
 };
+
 export default Userlist;
