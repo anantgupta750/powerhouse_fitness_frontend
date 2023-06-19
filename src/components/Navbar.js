@@ -9,16 +9,16 @@ const Navbar = (props) => {
 
   const onLogoutHandler = () => {
     info?.logout();
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" href="/dashboard">
             PowerHouse Fitness
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -35,10 +35,10 @@ const Navbar = (props) => {
               <Link className="nav-link active" aria-current="page" to="/about">
                 About
               </Link>
-              <Link className="nav-link active" href="workouts">
+              <Link className="nav-link active" to="/workouts">
                 Workouts
               </Link>
-              <Link className="nav-link active" href="#">
+              <Link className="nav-link active" to="/contactus">
                 Contact Us
               </Link>
               <div style={{ display: "flex", marginLeft: "auto" }}>

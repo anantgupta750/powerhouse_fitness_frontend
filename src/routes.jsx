@@ -8,10 +8,12 @@ import Trainer from "./components/admin/TrainerReg";
 import Trainerlist from "./components/admin/Trainerlist";
 import Userlist from "./components/admin/Userlist";
 import About from "./components/home/About";
+import Contactus from "./components/home/Contactus";
+import Workouts from "./components/home/Workouts";
 import MembershipReg from "./components/user/MembershipReg";
 
 export const routes = [
-  { path: "", Component: Login },
+  { path: "", Component: Dashboard },
   { path: "login", Component: Login },
   { path: "register", Component: Register },
   { path: "dashboard", Component: Dashboard },
@@ -24,4 +26,6 @@ export const routes = [
   { path: "trainer/update/:id", Component: Trainer },
   { path: "membership/view", Component: MembershipViewComponent },
   { path: "about", Component: About },
+  { path: "workouts", Component: Workouts},
+  { path:"contactus", Component: Contactus},
 ];
