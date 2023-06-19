@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 // import { useUser } from "../hooks/useUserRole";
 import AdminNav from "./Admin_Nav";
 
@@ -8,9 +8,20 @@ const TrainerReg = () => {
     name: "",
     dateOfBirth: "",
     phone: "",
+    gender:"",
     experience: "",
     address: "",
   });
+
+  const params=useParams();
+  console.log(params);
+
+  useEffect(()=>{
+    if(!params.id) {
+      return;
+    }
+    fetch(`https://localhost:7255/api/Trainers/${params.id}`).then(response=>response.json()).then(t=>setForm(t));
+  },[params])
 
   const navigate = useNavigate();
 
@@ -82,6 +93,7 @@ const TrainerReg = () => {
                         name="gender"
                         id="flexRadioDefault1"
                         onChange={onChangeHandler}
+                        checked={form.gender==="Male"}
                       />
                       <label class="form-check-label" htmlfor="male">
                         Male
@@ -94,6 +106,7 @@ const TrainerReg = () => {
                         value="Female"
                         name="gender"
                         id="flexRadioDefault2"
+                        checked={form.gender==="Female"}
                         onChange={onChangeHandler}
                       />
                       <label class="form-check-label" htmlfor="flexRadioDefault2">
@@ -113,6 +126,8 @@ const TrainerReg = () => {
                       name="dateOfBirth"
                       required
                       value={form.dob}
+                      // value={"12-06-2023"}
+
                       onChange={onChangeHandler}
                     />
                   </div>

@@ -32,11 +32,11 @@ export const Login = () => {
       const data = await response.json();
       if (response.ok) {
         alert("data submitted");
-        loggedIn(data.roleId);
+        loggedIn(data.roleId, data);
         navigate("/dashboard");
       }
     } catch (error) {
-      alert("failed to submit data");
+      alert("Invalid email or password");
     }
   };
   return (

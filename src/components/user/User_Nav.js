@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const UserNav = () => {
   return (
     <>
@@ -22,9 +24,9 @@ const UserNav = () => {
               <a className="nav-link active" href="#">
                 Trainers
               </a>
-              <a className="nav-link active" href="#">
+              <Link className="nav-link active" to="/membershipregister">
                 Membership Registration
-              </a>
+              </Link>
               <a className="nav-link active" href="#">
                 Contact Us
               </a>

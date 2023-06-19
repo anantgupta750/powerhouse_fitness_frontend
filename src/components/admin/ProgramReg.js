@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useUser } from "../hooks/useUserRole";
 import AdminNav from "./Admin_Nav";
 const ProgramReg = () => {
+  const [trainer, settrainer] = useState([]);
   const [form, setForm] = useState({
     name: "",
     duration: "",
@@ -10,6 +11,13 @@ const ProgramReg = () => {
     cost: "",
     trainerId: "",
   });
+
+  useEffect(() => {
+    fetch("https://localhost:7255/api/Trainers").
+      then(response => response.json()).
+      then(trainer => settrainer(trainer));
+  }, [])
+  
 
   const navigate = useNavigate();
 
@@ -33,7 +41,7 @@ const ProgramReg = () => {
       );
       if (response.ok) {
         alert("data submitted");
-        navigate("/trainerlist");
+        navigate("/programlist");
       }
     } catch (error) {
       alert("failed to submit data");
@@ -49,7 +57,7 @@ const ProgramReg = () => {
             <div className="col-12 col-md-8 col-lg-6 col-xl-6">
               <div className="card shadow-2-strong">
                 <div className="card-body p-5 text-center">
-                  <h3 className="mb-5">Trainer Register</h3>
+                  <h3 className="mb-5">Program Register</h3>
 
                   <div className="form-outline mb-4">
                     <label className="form-label float-start" htmlfor="name">
@@ -116,38 +124,16 @@ const ProgramReg = () => {
                       onChange={onChangeHandler}
                       required
                     />
+                    
                   </div>
 
                   <div className="form-outline mb-4">
                     <label className="form-label float-start" htmlfor="cost">
                       Trainer
                     </label>
-                    <div class="dropdown">
-                      <button
-                        class="btn btn-secondary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        Choose Trainer
-                      </button>
-                      <div
-                        class="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton"
-                      >
-                        <a class="dropdown-item" href="#">
-                          Action
-                        </a>
-                        <a class="dropdown-item" href="#">
-                          Another action
-                        </a>
-                        <a class="dropdown-item" href="#">
-                          Something else here
-                        </a>
-                      </div>
-                    </div>
+                    <select name="trainerId" onChange={onChangeHandler}>
+                      {trainer.map(t => <option value={t.trainerId}>{t.name}</option>)}
+                    </select>
                   </div>
 
                   <br />

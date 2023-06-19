@@ -1,6 +1,6 @@
 import './css/Navbar.css'
 import Login from './Login';
-// import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     return (
@@ -16,20 +16,10 @@ const Navbar = (props) => {
                             <a className="nav-link active" aria-current="page" href="#">About</a>
                             <a className="nav-link active" href="#">Workouts</a>
                             <a className="nav-link active" href="#">Contact Us</a>
-                            <div className="right">
-                                <a className="nav-link active  ">Disabled</a>
-                            </div>
+                            <Link className="nav-link active" to="/login">Login</Link>
+                            <Link className="nav-link active" to="/register">Register</Link>
 
                         </div>
-                        {/* <div>
-                            <BrowserRouter>
-                                <Routes>
-                                    <Route index element={<Navbar />} />    
-                                    <Route path='Login' element={<Login />}>Login</Route>
-                                </Routes>
-                            </BrowserRouter>
-                        </div> */}
-
                     </div>
                 </div>
             </nav>

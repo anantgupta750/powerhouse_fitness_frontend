@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AdminNav from "./Admin_Nav";
 import { useState, useEffect } from "react";
 
@@ -107,11 +108,12 @@ const Trainerlist = () => {
                 <td>{trainer.name}</td>
                 <td>{trainer.phone}</td>
                 <td>{trainer.gender}</td>
-                <td>{trainer.experience}</td>
+                <td>{trainer.experience} Years</td>
                 <td>{trainer.address}</td>
                 <td>
                   <button className="btn btn-danger" onClick={() => deleteTrainer(trainer.trainerId)}>Delete</button>
-                  <button className="btn btn-primary" onClick={() => handleEdit(trainer)}>Update</button>
+                  {/* <button className="btn btn-primary" onClick={() => handleEdit(trainer)}>Update</button> */}
+                  <Link className="btn btn-primary" to={`/trainer/update/${trainer.trainerId}`}>Update Trainer</Link>
                 </td>
               </tr>
             </tbody>
@@ -140,7 +142,7 @@ const Trainerlist = () => {
             Address:
             <input type="text" name="address" value={editedTrainer.address} onChange={handleInputChange} />
           </label>
-          <button type="submit">Update Trainer</button>
+          {/* <Link className="btn btn-primary" to={`trainer/update/${editedTrainer.trainerId}`}>Update Trainer</Link> */}
         </form>
       )}
     </>

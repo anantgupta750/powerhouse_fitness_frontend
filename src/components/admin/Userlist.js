@@ -49,6 +49,8 @@ const Userlist = () => {
   return (
     <>
       <AdminNav />
+      <br />
+      <br />
       <table className="container table table-striped ">
         <thead>
           <tr>

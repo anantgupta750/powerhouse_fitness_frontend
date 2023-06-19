@@ -29,9 +29,9 @@ const AdminNav = () => {
               <Link to="/userlist" className="nav-link active">
                 User List
               </Link>
-              <a className="nav-link active" href="#">
+              <Link className="nav-link active" to="/programlist">
                 Program List
-              </a>
+              </Link>
               <li className="nav-item dropdown">
                 <Link
                   className="nav-link dropdown-toggle active"
@@ -42,16 +42,16 @@ const AdminNav = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Dropdown
+                  Register
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <Link className="dropdown-item" to="/Trainerregister">
                     Trainer
                   </Link>
-                  <a className="dropdown-item" href="#">
-                    Programs
-                  </a>
-                  </div>
+                  <Link className="dropdown-item" to="/programregister">
+                    Program
+                  </Link>
+                </div>
               </li>
               <div className="right">
                 <a className="nav-link active  ">Logout</a>
