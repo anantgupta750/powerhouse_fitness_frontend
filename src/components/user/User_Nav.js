@@ -21,8 +21,12 @@ const UserNav = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
+          <div
+            className="collapse navbar-collapse"
+            id="navbarNavAltMarkup"
+            style={{ width: "100%" }}
+          >
+            <div className="navbar-nav" style={{ width: "100%" }}>
               <a className="nav-link active" href="#">
                 Trainers
               </a>
@@ -32,8 +36,15 @@ const UserNav = () => {
               <a className="nav-link active" href="#">
                 Contact Us
               </a>
-              <div className="right">
-              <Link className="nav-link active " onClick={()=>{info.logout()}}>Logout</Link>
+              <div style={{ marginLeft: "auto" }}>
+                <Link
+                  className="nav-link active "
+                  onClick={() => {
+                    info.logout();
+                  }}
+                >
+                  Logout
+                </Link>
               </div>
             </div>
           </div>

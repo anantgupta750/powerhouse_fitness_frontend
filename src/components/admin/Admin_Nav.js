@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUserRole";
 const AdminNav = () => {
   const info = useUser();
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,8 +21,12 @@ const AdminNav = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav">
+          <div
+            className="collapse navbar-collapse"
+            id="navbarNavAltMarkup"
+            style={{ width: "100%" }}
+          >
+            <div className="navbar-nav" style={{ width: "100%" }}>
               <Link className="nav-link active" to="/trainerlist">
                 Trainers List
               </Link>
@@ -55,8 +60,15 @@ const AdminNav = () => {
                   </Link>
                 </div>
               </li>
-              <div className="right">
-                <Link className="nav-link active " onClick={()=>{info.logout()}}>Logout</Link>
+              <div style={{ marginLeft: "auto" }}>
+                <Link
+                  className="nav-link active "
+                  onClick={() => {
+                    info.logout();
+                  }}
+                >
+                  Logout
+                </Link>
               </div>
             </div>
           </div>
