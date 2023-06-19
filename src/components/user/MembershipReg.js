@@ -3,29 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/useUserRole";
 import UserNav from "./User_Nav";
 const MembershipReg = () => {
-const info = useUser()
-console.log(info);
+  const info = useUser();
+  console.log(info);
   const [trainer, settrainer] = useState([]);
   const [program, setprogram] = useState([]);
   const [form, setForm] = useState({
-    userId: info.user.userId,
+    userId: "info.user.userId",
     programId: "",
     trainerId: "",
     payment: "",
   });
 
   useEffect(() => {
-    fetch("https://localhost:7255/api/Trainers").
-      then(response => response.json()).
-      then(trainer => settrainer(trainer));
-  }, [])
+    fetch("https://localhost:7255/api/Trainers")
+      .then((response) => response.json())
+      .then((trainer) => settrainer(trainer));
+  }, []);
 
   useEffect(() => {
-    fetch("https://localhost:7255/api/TrainingProgram").
-      then(response => response.json()).
-      then(program => setprogram(program));
-  }, [])
-  
+    fetch("https://localhost:7255/api/TrainingProgram")
+      .then((response) => response.json())
+      .then((program) => setprogram(program));
+  }, []);
 
   const navigate = useNavigate();
 
@@ -37,16 +36,13 @@ console.log(info);
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://localhost:7255/api/Membership",
-        {
-          method: "POST",
-          body: JSON.stringify(form),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("https://localhost:7255/api/Membership", {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.ok) {
         alert("data submitted");
         navigate("/trainerlist");
@@ -68,12 +64,17 @@ console.log(info);
                   <h3 className="mb-5">Membership Register</h3>
 
                   <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlfor="programId">
+                    <label
+                      className="form-label float-start"
+                      htmlfor="programId"
+                    >
                       Program Name
                     </label>
 
                     <select name="programId" onChange={onChangeHandler}>
-                      {program.map(t => <option value={t.programId}>{t.name}</option>)}
+                      {program.map((t) => (
+                        <option value={t.programId}>{t.name}</option>
+                      ))}
                     </select>
                   </div>
 
@@ -86,7 +87,9 @@ console.log(info);
                     </label>
 
                     <select name="trainerId" onChange={onChangeHandler}>
-                      {trainer.map(t => <option value={t.trainerId}>{t.name}</option>)}
+                      {trainer.map((t) => (
+                        <option value={t.trainerId}>{t.name}</option>
+                      ))}
                     </select>
                   </div>
                   <div className="form-outline mb-4">
@@ -104,7 +107,7 @@ console.log(info);
                       required
                     ></textarea>
                   </div>
-                <br />
+                  <br />
                   <button className="btn btn-success " type="submit">
                     Register
                   </button>
