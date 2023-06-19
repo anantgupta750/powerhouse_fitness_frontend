@@ -8,6 +8,7 @@ import ProgramReg from "./components/admin/ProgramReg";
 import Programlist from "./components/admin/Programlist";
 import Navbar from "./components/Navbar";
 import MembershipReg from "./components/user/MembershipReg";
+import About from "./components/home/About";
 
 
 export const routes = [
@@ -22,4 +23,5 @@ export const routes = [
   { path: "programlist", Component: Programlist},
   { path: "membershipregister", Component: MembershipReg},
   { path: "trainer/update/:id", Component: Trainer},
+  { path: "about", Component: About},
 ];

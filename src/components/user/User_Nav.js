@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUserRole";
 
 const UserNav = () => {
+  const info = useUser();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -31,7 +33,7 @@ const UserNav = () => {
                 Contact Us
               </a>
               <div className="right">
-                <a className="nav-link active  ">Logout</a>
+              <Link className="nav-link active " onClick={()=>{info.logout()}}>Logout</Link>
               </div>
             </div>
           </div>

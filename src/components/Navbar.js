@@ -1,6 +1,6 @@
 import './css/Navbar.css'
-import Login from './Login';
-import { Route, Routes, BrowserRouter, Link } from 'react-router-dom';
+// import Login from './Login';
+import {  Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     return (
@@ -13,9 +13,9 @@ const Navbar = (props) => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav">
-                            <a className="nav-link active" aria-current="page" href="#">About</a>
-                            <a className="nav-link active" href="#">Workouts</a>
-                            <a className="nav-link active" href="#">Contact Us</a>
+                            <Link className="nav-link active" aria-current="page" to="/about">About</Link>
+                            <Link className="nav-link active" href="workouts">Workouts</Link>
+                            <Link className="nav-link active" href="#">Contact Us</Link>
                             <Link className="nav-link active" to="/login">Login</Link>
                             <Link className="nav-link active" to="/register">Register</Link>
 
