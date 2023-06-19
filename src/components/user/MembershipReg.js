@@ -8,7 +8,7 @@ const MembershipReg = () => {
   const [trainer, settrainer] = useState([]);
   const [program, setprogram] = useState([]);
   const [form, setForm] = useState({
-    userId: "info.user.userId",
+    userId: info.user.userId,
     programId: "",
     trainerId: "",
     payment: "",
@@ -17,13 +17,19 @@ const MembershipReg = () => {
   useEffect(() => {
     fetch("https://localhost:7255/api/Trainers")
       .then((response) => response.json())
-      .then((trainer) => settrainer(trainer));
+      .then((trainer) => {
+        setForm((form) => ({ ...form, trainerId: trainer[0].trainerId }));
+        return settrainer(trainer);
+      });
   }, []);
 
   useEffect(() => {
     fetch("https://localhost:7255/api/TrainingProgram")
       .then((response) => response.json())
-      .then((program) => setprogram(program));
+      .then((program) => {
+        setForm((form) => ({ ...form, programId: program[0].trainerId }));
+        return setprogram(program);
+      });
   }, []);
 
   const navigate = useNavigate();

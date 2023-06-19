@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminNav from "./admin/Admin_Nav";
 import UserNav from "./user/User_Nav";
+import { useUser } from "../hooks/useUserRole";
 
 const trainersSample = [
   {
@@ -163,23 +164,32 @@ const usersSample = [
 ];
 
 export const MembershipViewComponent = () => {
+  const info = useUser();
+  console.log(info);
   const [trainers, setTrainers] = useState([]);
   const [programmes, setProgramme] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const USER_ID = 1;
-  const ROLE_ID = 2;
+  const USER_ID = info.user.userId;
+  const ROLE_ID = info.user.roleId;
 
-  const role = ROLE_ID === 2 ? "admin" : "user";
+  const role = ROLE_ID === 1 ? "admin" : "user";
 
   const isAdmin = role === "admin";
   const isUser = role === "user";
 
   useEffect(() => {
-    setTrainers(trainersSample);
-    setProgramme(programmesSample);
-    setMemberships(MembershipSample);
+    const loadData = async (url) => {
+      const response = await fetch(url);
+      return response.json();
+    };
+    (async () => {
+      const [t, p, m] = await Promise.all([loadData("https://localhost:7255/api/Trainers"), loadData("https://localhost:7255/api/TrainingProgram"), loadData("https://localhost:7255/api/Membership")]);
+      setTrainers(t);
+      setProgramme(p);
+      setMemberships(m);
+    })();
   }, []);
 
   useEffect(() => {
@@ -189,11 +199,18 @@ export const MembershipViewComponent = () => {
 
   const getFullName = (user) => `${user.firstName} ${user.lastName}`;
 
-  const onDeleteHandler = (membership) => alert(membership.membershipId);
+  const onDeleteHandler = async (membership) => {
+    await fetch(`https://localhost:7255/api/Membership/${membership.membershipId}`,{method: "DELETE"});
+    const memid = memberships.filter((m)=>m.membershipId != membership.membershipId);
+    setMemberships(memid);
+  };
+
 
   const filterMembership = isAdmin
     ? memberships
     : memberships.filter((m) => m.userId === USER_ID);
+
+    console.log(memberships, trainers, programmes, users);
 
   return (
     <>

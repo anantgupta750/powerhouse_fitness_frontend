@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUserRole";
+import { useNavigate } from "react-router-dom";
 const AdminNav = () => {
   const info = useUser();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -30,9 +32,9 @@ const AdminNav = () => {
               <Link className="nav-link active" to="/trainerlist">
                 Trainers List
               </Link>
-              <a className="nav-link active" href="#">
+              <Link className="nav-link active" to="/membership/view">
                 Membership List
-              </a>
+              </Link>
               <Link to="/userlist" className="nav-link active">
                 User List
               </Link>
@@ -65,6 +67,7 @@ const AdminNav = () => {
                   className="nav-link active "
                   onClick={() => {
                     info.logout();
+                    navigate("/");
                   }}
                 >
                   Logout

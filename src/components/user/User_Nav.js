@@ -33,9 +33,9 @@ const UserNav = () => {
               <Link className="nav-link active" to="/membershipregister">
                 Membership Registration
               </Link>
-              <a className="nav-link active" href="#">
-                Contact Us
-              </a>
+              <Link className="nav-link active" to="/membership/view">
+              Membership List
+              </Link>
               <div style={{ marginLeft: "auto" }}>
                 <Link
                   className="nav-link active "
