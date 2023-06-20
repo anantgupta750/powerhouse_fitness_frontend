@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 // import { useUser } from "../hooks/useUserRole";
 import AdminNav from "./Admin_Nav";
 const ProgramReg = () => {
+  const isUpdateMode = window.location.pathname.includes("/program/update");
   const [trainer, settrainer] = useState([]);
   const [form, setForm] = useState({
     name: "",
@@ -12,22 +13,21 @@ const ProgramReg = () => {
     trainerId: "",
   });
 
-  const params=useParams();
+  const params = useParams();
   console.log(params);
 
-  useEffect(()=>{
-    if(!params.id) {
-      return;
-    }
-    fetch(`https://localhost:7255/api/TrainingProgram/${params.id}`).then(response=>response.json()).then(t=>setForm(t));
-  },[params])
+  useEffect(() => {
+    if (!isUpdateMode) return;
+    fetch(`https://localhost:7255/api/TrainingProgram/${params.id}`)
+      .then((response) => response.json())
+      .then((t) => setForm(t));
+  }, [params, isUpdateMode]);
 
   useEffect(() => {
-    fetch("https://localhost:7255/api/Trainers").
-      then(response => response.json()).
-      then(trainer => settrainer(trainer));
-  }, [])
-  
+    fetch("https://localhost:7255/api/Trainers")
+      .then((response) => response.json())
+      .then((trainer) => settrainer(trainer));
+  }, []);
 
   const navigate = useNavigate();
 
@@ -50,18 +50,41 @@ const ProgramReg = () => {
         }
       );
       if (response.ok) {
-        alert("data submitted");
+        console.log("data submitted");
         navigate("/programlist");
       }
     } catch (error) {
-      alert("failed to submit data");
+      console.log("failed to submit data");
+    }
+  };
+
+  const onSubmitUpdateHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://localhost:7255/api/TrainingProgram/" + params.id,
+        {
+          method: "PUT",
+          body: JSON.stringify(form),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("data submitted");
+        navigate("/programlist");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <>
       <AdminNav />
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={isUpdateMode ? onSubmitUpdateHandler : onSubmitHandler}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-6">
@@ -134,7 +157,6 @@ const ProgramReg = () => {
                       onChange={onChangeHandler}
                       required
                     />
-                    
                   </div>
 
                   <div className="form-outline mb-4">
@@ -142,7 +164,9 @@ const ProgramReg = () => {
                       Preferred Trainer
                     </label>
                     <select name="trainerId" onChange={onChangeHandler}>
-                      {trainer.map(t => <option value={t.trainerId}>{t.name}</option>)}
+                      {trainer.map((t) => (
+                        <option value={t.trainerId}>{t.name}</option>
+                      ))}
                     </select>
                   </div>
 

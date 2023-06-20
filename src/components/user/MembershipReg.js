@@ -50,11 +50,11 @@ const MembershipReg = () => {
         },
       });
       if (response.ok) {
-        alert("data submitted");
+        console.log("data submitted");
         navigate("/membership/view");
       }
     } catch (error) {
-      alert("failed to submit data");
+      console.log("failed to submit data");
     }
   };
 

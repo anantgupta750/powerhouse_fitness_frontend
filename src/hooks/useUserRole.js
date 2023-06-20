@@ -10,13 +10,20 @@ export const UserProvider = ({ children }) => {
   const logout = () => setIsLoggedIn(false);
   const loggedIn = (roleId, userinfo) => {
     setIsLoggedIn(true);
+    console.log(userinfo);
     setuserinfo(userinfo);
     roleIdRef.current = roleId;
   };
 
   return (
     <UserContext.Provider
-      value={{ isLoggedIn, logout, loggedIn, roleId: roleIdRef.current , user: userinfo}}
+      value={{
+        isLoggedIn,
+        logout,
+        loggedIn,
+        roleId: roleIdRef.current,
+        user: userinfo,
+      }}
     >
       {children}
     </UserContext.Provider>

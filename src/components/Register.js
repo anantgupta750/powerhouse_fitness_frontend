@@ -42,15 +42,14 @@ const Register = () => {
       );
       const data = await response.json();
       if (response.ok) {
-        alert("data submitted");
+        console.log("data submitted");
         loggedIn(data.roleId);
         navigate("/dashboard");
-      }
-      else{
-        alert("User already exists");
+      } else {
+        console.log("User already exists");
       }
     } catch (error) {
-      alert("failed to submit data");
+      console.log("failed to submit data");
     }
   };
 

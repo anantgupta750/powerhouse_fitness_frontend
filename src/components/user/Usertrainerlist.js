@@ -1,6 +1,4 @@
-
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Usernavbar from "./Usernavbar";
 
 const Usertrainerlist = () => {
@@ -17,18 +15,17 @@ const Usertrainerlist = () => {
         });
         const data = await response.json();
         if (response.ok) {
-          alert("Trainer List Fetched");
+          console.log("Trainer List Fetched");
           setTrainerData(data);
         }
       } catch (error) {
-        alert("Failed to load Trainer List");
+        console.log("Failed to load Trainer List");
       }
     };
 
     fetchData();
   }, []);
 
-  
   return (
     <>
       <Usernavbar />
@@ -37,12 +34,11 @@ const Usertrainerlist = () => {
       <table className="container table table-striped ">
         <thead>
           <tr>
-          <th scope="col">Trainer Id</th>
+            <th scope="col">Trainer Id</th>
             <th scope="col">Name</th>
             <th scope="col">Gender</th>
             <th scope="col">Phone No.</th>
             <th scope="col">Experience</th>
-            
           </tr>
         </thead>
         {trainerData !== null &&
@@ -50,9 +46,7 @@ const Usertrainerlist = () => {
             <tbody key={trainer.trainerId}>
               <tr>
                 <th scope="row">{trainer.trainerId}</th>
-                <td>
-                  {trainer.name} 
-                </td>
+                <td>{trainer.name}</td>
                 <td>{trainer.gender}</td>
                 <td>{trainer.phone}</td>
                 <td>{trainer.experience}</td>

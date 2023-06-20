@@ -1,172 +1,15 @@
 import { useEffect, useState } from "react";
-import AdminNav from "./admin/Admin_Nav";
-import UserNav from "./user/User_Nav";
 import { useUser } from "../hooks/useUserRole";
+import AdminNav from "./admin/Admin_Nav";
 import Usernavbar from "./user/Usernavbar";
 
-const trainersSample = [
-  {
-    trainerId: 1,
-    name: "Saksham Sonker",
-    gender: "Male",
-    dateOfBirth: "2023-06-07T00:00:00",
-    phone: "9874573687",
-    experience: 2,
-    address: "Amethi",
-  },
-  {
-    trainerId: 2,
-    name: "Aman Singh",
-    gender: "Male",
-    dateOfBirth: "2022-05-02T00:00:00",
-    phone: "9854637638",
-    experience: 7,
-    address: "Lucknow",
-  },
-  {
-    trainerId: 1002,
-    name: "Harsh",
-    gender: "string",
-    dateOfBirth: "2023-06-19T00:00:00",
-    phone: "1351743771",
-    experience: 12,
-    address: "string",
-  },
-  {
-    trainerId: 1003,
-    name: "Om",
-    gender: "string",
-    dateOfBirth: "2023-06-19T00:00:00",
-    phone: "1351743771",
-    experience: 22,
-    address: "string",
-  },
-];
-
-const programmesSample = [
-  {
-    programId: 1,
-    name: "Yoga",
-    duration: 2,
-    description: "Stress Relive",
-    cost: 4500,
-    trainerId: 1,
-  },
-  {
-    programId: 2,
-    name: "Dance",
-    duration: 0,
-    description: "string",
-    cost: 1220,
-    trainerId: 2,
-  },
-  {
-    programId: 3,
-    name: "Swim",
-    duration: 0,
-    description: "string",
-    cost: 1220,
-    trainerId: 1002,
-  },
-  {
-    programId: 5,
-    name: "Aerobics",
-    duration: 0,
-    description: "string",
-    cost: 1220,
-    trainerId: 1003,
-  },
-];
-
-const MembershipSample = [
-  {
-    membershipId: 1,
-    userId: 1,
-    programId: 1,
-    trainerId: 1,
-    payment: "string",
-  },
-  {
-    membershipId: 2,
-    userId: 2,
-    programId: 3,
-    trainerId: 1002,
-    payment: "string",
-  },
-  {
-    membershipId: 3,
-    userId: 1002,
-    programId: 5,
-    trainerId: 1003,
-    payment: "string",
-  },
-  {
-    membershipId: 4,
-    userId: 1,
-    programId: 2,
-    trainerId: 1003,
-    payment: "string",
-  },
-];
-
-const usersSample = [
-  {
-    userId: 1,
-    firstName: "Anant",
-    lastName: "Gupta",
-    email: "anant@gmail.com",
-    password: "$2a$11$bL7O1/8T4eEeMkF6qV9Ciew3ZK8kiiSSBtswgtw2sDdY86iebTV.y",
-    gender: "Male",
-    joinDate: "2023-06-18T18:13:12.628",
-    dateOfBirth: "2023-06-01T00:00:00",
-    phoneNumber: "7505454380",
-    address: "Noida",
-    roleId: 2,
-  },
-  {
-    userId: 2,
-    firstName: "Om",
-    lastName: "Gupta",
-    email: "om@gmail.com",
-    password: "qwertyuiop",
-    gender: "Male",
-    joinDate: "2023-06-18T00:00:00",
-    dateOfBirth: "2023-06-18T00:00:00",
-    phoneNumber: "8318597515",
-    address: "Lucknow",
-    roleId: 1,
-  },
-  {
-    userId: 1002,
-    firstName: "Harsh",
-    lastName: "string",
-    email: "harsh@example.com",
-    password: "stringst",
-    gender: "string",
-    joinDate: "2023-06-19T00:00:00",
-    dateOfBirth: "2023-06-19T00:00:00",
-    phoneNumber: "1388841794",
-    address: "string",
-    roleId: 2,
-  },
-  {
-    userId: 1003,
-    firstName: "sashwat",
-    lastName: "string",
-    email: "sas@example.com",
-    password: "stringst",
-    gender: "string",
-    joinDate: "2023-06-19T00:00:00",
-    dateOfBirth: "2023-06-19T00:00:00",
-    phoneNumber: "1388841794",
-    address: "string",
-    roleId: 2,
-  },
-];
+const loadData = async (url) => {
+  const response = await fetch(url);
+  return response.json();
+};
 
 export const MembershipViewComponent = () => {
   const info = useUser();
-  console.log(info);
   const [trainers, setTrainers] = useState([]);
   const [programmes, setProgramme] = useState([]);
   const [memberships, setMemberships] = useState([]);
@@ -181,12 +24,12 @@ export const MembershipViewComponent = () => {
   const isUser = role === "user";
 
   useEffect(() => {
-    const loadData = async (url) => {
-      const response = await fetch(url);
-      return response.json();
-    };
     (async () => {
-      const [t, p, m] = await Promise.all([loadData("https://localhost:7255/api/Trainers"), loadData("https://localhost:7255/api/TrainingProgram"), loadData("https://localhost:7255/api/Membership")]);
+      const [t, p, m] = await Promise.all([
+        loadData("https://localhost:7255/api/Trainers"),
+        loadData("https://localhost:7255/api/TrainingProgram"),
+        loadData("https://localhost:7255/api/Membership"),
+      ]);
       setTrainers(t);
       setProgramme(p);
       setMemberships(m);
@@ -195,23 +38,27 @@ export const MembershipViewComponent = () => {
 
   useEffect(() => {
     if (!isAdmin) return;
-    setUsers(usersSample);
+    loadData("https://localhost:7255/api/Users").then((u) => setUsers(u));
   }, [isAdmin]);
 
   const getFullName = (user) => `${user.firstName} ${user.lastName}`;
 
   const onDeleteHandler = async (membership) => {
-    await fetch(`https://localhost:7255/api/Membership/${membership.membershipId}`,{method: "DELETE"});
-    const memid = memberships.filter((m)=>m.membershipId != membership.membershipId);
+    await fetch(
+      `https://localhost:7255/api/Membership/${membership.membershipId}`,
+      { method: "DELETE" }
+    );
+    const memid = memberships.filter(
+      (m) => m.membershipId != membership.membershipId
+    );
     setMemberships(memid);
   };
-
 
   const filterMembership = isAdmin
     ? memberships
     : memberships.filter((m) => m.userId === USER_ID);
 
-    console.log(memberships, trainers, programmes, users);
+  console.log({ programmes });
 
   return (
     <>
@@ -244,16 +91,12 @@ export const MembershipViewComponent = () => {
                   </td>
                 )}
                 <td>
-                  {
-                    programmes.find((p) => p.programId === membership.programId)
-                      .name
-                  }
+                  {programmes.find((p) => p.programId === membership.programId)
+                    ?.name ?? ""}
                 </td>
                 <td>
-                  {
-                    trainers.find((t) => t.trainerId === membership.trainerId)
-                      .name
-                  }
+                  {trainers.find((t) => t.trainerId === membership.trainerId)
+                    ?.name ?? ""}
                 </td>
                 <td>{membership.payment}</td>
 

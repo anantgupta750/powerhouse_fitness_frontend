@@ -1,10 +1,9 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdminNav from "./Admin_Nav";
-import { useState, useEffect } from "react";
 
 const Trainerlist = () => {
   const [trainerData, setTrainerData] = useState(null);
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,11 +16,11 @@ const Trainerlist = () => {
         });
         const data = await response.json();
         if (response.ok) {
-          alert("Trainer List Fetched");
+          console.log("Trainer List Fetched");
           setTrainerData(data);
         }
       } catch (error) {
-        alert("Failed to load Trainer List");
+        console.log("Failed to load Trainer List");
       }
     };
 
@@ -30,24 +29,28 @@ const Trainerlist = () => {
 
   const deleteTrainer = async (trainerId) => {
     try {
-      const response = await fetch(`https://localhost:7255/api/Trainers/${trainerId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://localhost:7255/api/Trainers/${trainerId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.ok) {
-        alert("Trainer deleted successfully");
-        setTrainerData(trainerData.filter((trainer) => trainer.trainerId !== trainerId));
+        console.log("Trainer deleted successfully");
+        setTrainerData(
+          trainerData.filter((trainer) => trainer.trainerId !== trainerId)
+        );
       } else {
-        alert("Failed to delete Trainer");
+        console.log("Failed to delete Trainer");
       }
     } catch (error) {
-      alert("Failed to delete Trainer");
+      console.log("Failed to delete Trainer");
     }
   };
 
-  
   return (
     <>
       <AdminNav />
@@ -76,16 +79,24 @@ const Trainerlist = () => {
                 <td>{trainer.experience} Years</td>
                 <td>{trainer.address}</td>
                 <td>
-                  <button className="btn btn-danger" onClick={() => deleteTrainer(trainer.trainerId)}>Delete</button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteTrainer(trainer.trainerId)}
+                  >
+                    Delete
+                  </button>
                   {/* <button className="btn btn-primary" onClick={() => handleEdit(trainer)}>Update</button> */}
-                  <Link className="btn btn-primary" to={`/trainer/update/${trainer.trainerId}`}>Update</Link>
+                  <Link
+                    className="btn btn-primary"
+                    to={`/trainer/update/${trainer.trainerId}`}
+                  >
+                    Update
+                  </Link>
                 </td>
               </tr>
             </tbody>
           ))}
       </table>
-
-      
     </>
   );
 };
