@@ -16,7 +16,7 @@ const Navbar = (props) => {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <Link className="navbar-brand" href="/dashboard">
+          <Link className="navbar-brand" to="/dashboard">
             PowerHouse Fitness
           </Link>
           <button

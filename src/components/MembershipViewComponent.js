@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AdminNav from "./admin/Admin_Nav";
 import UserNav from "./user/User_Nav";
 import { useUser } from "../hooks/useUserRole";
+import Usernavbar from "./user/Usernavbar";
 
 const trainersSample = [
   {
@@ -214,7 +215,7 @@ export const MembershipViewComponent = () => {
 
   return (
     <>
-      {isAdmin ? <AdminNav /> : <UserNav />}
+      {isAdmin ? <AdminNav /> : <Usernavbar />}
 
       <section className="container mt-4">
         <h1 className="title">
@@ -228,7 +229,7 @@ export const MembershipViewComponent = () => {
               <th>Program Name</th>
               <th>Trainer Name</th>
               <th>Payment Detail</th>
-              {isAdmin && <th></th>}
+              {isAdmin && <th>Delete</th>}
             </tr>
           </thead>
 

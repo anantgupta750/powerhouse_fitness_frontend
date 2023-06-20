@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import AdminNav from "./Admin_Nav";
 
 const TrainerReg = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState({ 
     name: "",
     dateOfBirth: "",
     phone: "",

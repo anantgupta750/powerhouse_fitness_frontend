@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/useUserRole";
-import UserNav from "./User_Nav";
+import Usernavbar from "./Usernavbar";
 const MembershipReg = () => {
   const info = useUser();
   console.log(info);
@@ -51,7 +51,7 @@ const MembershipReg = () => {
       });
       if (response.ok) {
         alert("data submitted");
-        navigate("/trainerlist");
+        navigate("/membership/view");
       }
     } catch (error) {
       alert("failed to submit data");
@@ -60,7 +60,7 @@ const MembershipReg = () => {
 
   return (
     <>
-      <UserNav />
+      <Usernavbar />
       <form onSubmit={onSubmitHandler}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">

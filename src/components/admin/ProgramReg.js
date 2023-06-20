@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { useUser } from "../hooks/useUserRole";
 import AdminNav from "./Admin_Nav";
 const ProgramReg = () => {
@@ -11,6 +11,16 @@ const ProgramReg = () => {
     cost: "",
     trainerId: "",
   });
+
+  const params=useParams();
+  console.log(params);
+
+  useEffect(()=>{
+    if(!params.id) {
+      return;
+    }
+    fetch(`https://localhost:7255/api/TrainingProgram/${params.id}`).then(response=>response.json()).then(t=>setForm(t));
+  },[params])
 
   useEffect(() => {
     fetch("https://localhost:7255/api/Trainers").
@@ -129,7 +139,7 @@ const ProgramReg = () => {
 
                   <div className="form-outline mb-4">
                     <label className="form-label float-start" htmlfor="cost">
-                      Trainer
+                      Preferred Trainer
                     </label>
                     <select name="trainerId" onChange={onChangeHandler}>
                       {trainer.map(t => <option value={t.trainerId}>{t.name}</option>)}
