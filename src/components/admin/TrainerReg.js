@@ -4,24 +4,26 @@ import { useNavigate, useParams } from "react-router-dom";
 import AdminNav from "./Admin_Nav";
 
 const TrainerReg = () => {
-  const [form, setForm] = useState({ 
+  const isUpdateMode = window.location.pathname.includes("/trainer/update");
+  const [form, setForm] = useState({
     name: "",
     dateOfBirth: "",
     phone: "",
-    gender:"",
+    gender: "",
     experience: "",
     address: "",
   });
 
-  const params=useParams();
+  const params = useParams();
   console.log(params);
 
-  useEffect(()=>{
-    if(!params.id) {
-      return;
-    }
-    fetch(`https://localhost:7255/api/Trainers/${params.id}`).then(response=>response.json()).then(t=>setForm(t));
-  },[params])
+  useEffect(() => {
+    if (!isUpdateMode) return;
+
+    fetch(`https://localhost:7255/api/Trainers/${params.id}`)
+      .then((response) => response.json())
+      .then((t) => setForm(t));
+  }, [params, isUpdateMode]);
 
   const navigate = useNavigate();
 
@@ -43,21 +45,46 @@ const TrainerReg = () => {
           "Content-Type": "application/json",
         },
       });
-      
+
       if (response.ok) {
-        alert("data submitted");
+        console.log("data submitted");
         // loggedIn(data.roleId);
         navigate("/trainerlist");
       }
     } catch (error) {
-      alert("failed to submit data");
+      console.log("failed to submit data");
+    }
+  };
+
+  const onSubmitUpdateHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://localhost:7255/api/Trainers/" + params.id,
+        {
+          method: "PUT",
+          body: JSON.stringify(form),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("data submitted");
+        // loggedIn(data.roleId);
+        navigate("/trainerlist");
+        console.log("success");
+      }
+    } catch (error) {
+      console.log("failed to submit data");
     }
   };
 
   return (
     <>
       <AdminNav />
-      <form onSubmit={onSubmitHandler}>
+      <form onSubmit={!isUpdateMode ? onSubmitHandler : onSubmitUpdateHandler}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-8 col-lg-6 col-xl-6">
@@ -93,7 +120,7 @@ const TrainerReg = () => {
                         name="gender"
                         id="flexRadioDefault1"
                         onChange={onChangeHandler}
-                        checked={form.gender==="Male"}
+                        checked={form.gender === "Male"}
                       />
                       <label class="form-check-label" htmlfor="male">
                         Male
@@ -106,17 +133,23 @@ const TrainerReg = () => {
                         value="Female"
                         name="gender"
                         id="flexRadioDefault2"
-                        checked={form.gender==="Female"}
+                        checked={form.gender === "Female"}
                         onChange={onChangeHandler}
                       />
-                      <label class="form-check-label" htmlfor="flexRadioDefault2">
+                      <label
+                        class="form-check-label"
+                        htmlfor="flexRadioDefault2"
+                      >
                         Female
                       </label>
                     </div>
                   </div>
 
                   <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlfor="dateOfBirth">
+                    <label
+                      className="form-label float-start"
+                      htmlfor="dateOfBirth"
+                    >
                       Date of Birth
                     </label>
 
@@ -150,7 +183,10 @@ const TrainerReg = () => {
                   </div>
 
                   <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlfor="experience">
+                    <label
+                      className="form-label float-start"
+                      htmlfor="experience"
+                    >
                       Experience
                     </label>
 
@@ -166,7 +202,10 @@ const TrainerReg = () => {
                     />
                   </div>
                   <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlhtmlfor="address">
+                    <label
+                      className="form-label float-start"
+                      htmlhtmlfor="address"
+                    >
                       Address
                     </label>
                     <textarea
