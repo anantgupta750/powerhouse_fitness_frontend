@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../hooks/useUserRole";
 import AdminNav from "./admin/Admin_Nav";
-import Usernavbar from "./user/Usernavbar";
+import UserNavbar from "./user/Usernavbar";
 
 const loadData = async (url) => {
   const response = await fetch(url);
@@ -11,7 +11,7 @@ const loadData = async (url) => {
 export const MembershipViewComponent = () => {
   const info = useUser();
   const [trainers, setTrainers] = useState([]);
-  const [programmes, setProgrammes] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -31,7 +31,7 @@ export const MembershipViewComponent = () => {
         loadData("https://localhost:7255/api/Membership"),
       ]);
       setTrainers(t);
-      setProgrammes(p);
+      setPrograms(p);
       setMemberships(m);
     })();
   }, []);
@@ -48,23 +48,23 @@ export const MembershipViewComponent = () => {
       `https://localhost:7255/api/Membership/${membership.membershipId}`,
       { method: "DELETE" }
     );
-    const memid = memberships.filter(
+    const filteredMemberships = memberships.filter(
       (m) => m.membershipId !== membership.membershipId
     );
-    setMemberships(memid);
+    setMemberships(filteredMemberships);
   };
 
-  const filterMembership = isAdmin
+  const filteredMemberships = isAdmin
     ? memberships
     : memberships.filter((m) => m.userId === USER_ID);
 
   return (
     <>
-      {isAdmin ? <AdminNav /> : <Usernavbar />}
+      {isAdmin ? <AdminNav /> : <UserNavbar />}
 
       <section className="container mt-4">
         <h1 className="title">
-          {isUser ? "Your registered membership" : "Membership"}
+          {isUser ? "Your Registered Membership" : "Membership"}
         </h1>
 
         <table className="table mt-4">
@@ -79,7 +79,7 @@ export const MembershipViewComponent = () => {
           </thead>
 
           <tbody>
-            {filterMembership.map((membership) => (
+            {filteredMemberships.map((membership) => (
               <tr key={membership.membershipId}>
                 {isAdmin && (
                   <td>
@@ -89,7 +89,7 @@ export const MembershipViewComponent = () => {
                   </td>
                 )}
                 <td>
-                  {programmes.find((p) => p.programId === membership.programId)
+                  {programs.find((p) => p.programId === membership.programId)
                     ?.name ?? ""}
                 </td>
                 <td>

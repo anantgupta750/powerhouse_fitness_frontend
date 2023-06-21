@@ -13,14 +13,14 @@ const Carousel =()=>{
           </ol>
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img className="d-block w-100" style={{height: 550}} src={gym} alt="First slide" />
+              <img className="d-block w-100" style={{height: 600}} src={gym} alt="First slide" />
             </div>
             <div className="carousel-item">
-              <img className="d-block w-100 " style={{height: 550}}
+              <img className="d-block w-100 " style={{height: 600}}
          src={yoga} alt="Second slide" />
             </div>
             <div className="carousel-item">
-              <img className="d-block w-100" style={{height: 550}} src={zumba} alt="Third slide" />
+              <img className="d-block w-100" style={{height: 600}} src={zumba} alt="Third slide" />
             </div>
           </div>
           <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

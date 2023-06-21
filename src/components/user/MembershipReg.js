@@ -6,8 +6,8 @@ import UserNavbar from "./Usernavbar";
 const MembershipReg = () => {
   const info = useUser();
   const navigate = useNavigate();
-  const [trainer, setTrainer] = useState([]);
-  const [program, setProgram] = useState([]);
+  const [trainers, setTrainers] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [form, setForm] = useState({
     userId: info.user.userId,
     programId: "",
@@ -18,18 +18,18 @@ const MembershipReg = () => {
   useEffect(() => {
     fetch("https://localhost:7255/api/Trainers")
       .then((response) => response.json())
-      .then((trainer) => {
-        setForm((form) => ({ ...form, trainerId: trainer[0].trainerId }));
-        setTrainer(trainer);
+      .then((trainers) => {
+        setForm((form) => ({ ...form, trainerId: trainers[0].trainerId }));
+        setTrainers(trainers);
       });
   }, []);
 
   useEffect(() => {
     fetch("https://localhost:7255/api/TrainingProgram")
       .then((response) => response.json())
-      .then((program) => {
-        setForm((form) => ({ ...form, programId: program[0].programId }));
-        setProgram(program);
+      .then((programs) => {
+        setForm((form) => ({ ...form, programId: programs[0].programId }));
+        setPrograms(programs);
       });
   }, []);
 
@@ -75,9 +75,9 @@ const MembershipReg = () => {
                       name="programId"
                       onChange={onChangeHandler}
                     >
-                      {program.map((p) => (
-                        <option key={p.programId} value={p.programId}>
-                          {p.name}
+                      {programs.map((program) => (
+                        <option key={program.programId} value={program.programId}>
+                          {program.name}
                         </option>
                       ))}
                     </select>
@@ -90,9 +90,9 @@ const MembershipReg = () => {
                       name="trainerId"
                       onChange={onChangeHandler}
                     >
-                      {trainer.map((t) => (
-                        <option key={t.trainerId} value={t.trainerId}>
-                          {t.name}
+                      {trainers.map((trainer) => (
+                        <option key={trainer.trainerId} value={trainer.trainerId}>
+                          {trainer.name}
                         </option>
                       ))}
                     </select>

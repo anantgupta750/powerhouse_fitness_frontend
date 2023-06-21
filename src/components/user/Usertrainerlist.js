@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Usernavbar from "./Usernavbar";
+import UserNavbar from "./Usernavbar";
 
-const Usertrainerlist = () => {
+const UserTrainerList = () => {
   const [trainerData, setTrainerData] = useState(null);
 
   useEffect(() => {
@@ -28,34 +28,34 @@ const Usertrainerlist = () => {
 
   return (
     <>
-      <Usernavbar />
-      <br />
-      <br />
-      <table className="container table table-striped ">
-        <thead>
-          <tr>
-            <th scope="col">Trainer Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Phone No.</th>
-            <th scope="col">Experience</th>
-          </tr>
-        </thead>
-        {trainerData !== null &&
-          trainerData.map((trainer) => (
-            <tbody key={trainer.trainerId}>
-              <tr>
-                <th scope="row">{trainer.trainerId}</th>
-                <td>{trainer.name}</td>
-                <td>{trainer.gender}</td>
-                <td>{trainer.phone}</td>
-                <td>{trainer.experience}</td>
-              </tr>
-            </tbody>
-          ))}
-      </table>
+      <UserNavbar />
+      <div className="container mt-4">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              {/* <th scope="col">Trainer Id</th> */}
+              <th scope="col">Trainer Name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Phone No.</th>
+              <th scope="col">Experience</th>
+            </tr>
+          </thead>
+          <tbody>
+            {trainerData !== null &&
+              trainerData.map((trainer) => (
+                <tr key={trainer.trainerId}>
+                  {/* <td>{trainer.trainerId}</td> */}
+                  <td>{trainer.name}</td>
+                  <td>{trainer.gender}</td>
+                  <td>{trainer.phone}</td>
+                  <td>{trainer.experience} Years</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
 
-export default Usertrainerlist;
+export default UserTrainerList;
