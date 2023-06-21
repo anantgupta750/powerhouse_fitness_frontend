@@ -158,7 +158,7 @@ const TrainerReg = () => {
                       className="form-control"
                       name="dateOfBirth"
                       required
-                      value={form.dateOfBirth}
+                      value={form.dob}
                       onChange={onChangeHandler}
                       placeholder="Select your date of birth"
                     />
@@ -176,7 +176,6 @@ const TrainerReg = () => {
                       onChange={onChangeHandler}
                       required
                       maxLength={10}
-                      pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                       placeholder="e.g. 123-45-678"
                     />
                   </div>
