@@ -177,7 +177,7 @@ const Register = () => {
                         type="date"
                         className="form-control form-control-lg"
                         name="dateOfBirth"
-                        value={form.dateOfBirth}
+                        value={form.dob}
                         onChange={onChangeHandler}
                         required
                       />

@@ -9,7 +9,7 @@ const AdminNav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link className="navbar-brand" to="/adminnav">
           PowerHouse Fitness
         </Link>
         <button
