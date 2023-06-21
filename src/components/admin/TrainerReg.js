@@ -28,7 +28,8 @@ const TrainerReg = () => {
   const onChangeHandler = (e) => {
     let { name, value, type } = e.target;
     if (type === "date") {
-      value = e.target.valueAsDate;
+      // value = e.target.valueAsDate;
+      value = e.target.value;
     }
     setForm((form) => ({ ...form, [name]: value }));
   };
