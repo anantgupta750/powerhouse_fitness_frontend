@@ -11,7 +11,7 @@ const loadData = async (url) => {
 export const MembershipViewComponent = () => {
   const info = useUser();
   const [trainers, setTrainers] = useState([]);
-  const [programmes, setProgramme] = useState([]);
+  const [programmes, setProgrammes] = useState([]);
   const [memberships, setMemberships] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -31,7 +31,7 @@ export const MembershipViewComponent = () => {
         loadData("https://localhost:7255/api/Membership"),
       ]);
       setTrainers(t);
-      setProgramme(p);
+      setProgrammes(p);
       setMemberships(m);
     })();
   }, []);
@@ -49,7 +49,7 @@ export const MembershipViewComponent = () => {
       { method: "DELETE" }
     );
     const memid = memberships.filter(
-      (m) => m.membershipId != membership.membershipId
+      (m) => m.membershipId !== membership.membershipId
     );
     setMemberships(memid);
   };
@@ -57,8 +57,6 @@ export const MembershipViewComponent = () => {
   const filterMembership = isAdmin
     ? memberships
     : memberships.filter((m) => m.userId === USER_ID);
-
-  console.log({ programmes });
 
   return (
     <>
@@ -70,7 +68,7 @@ export const MembershipViewComponent = () => {
         </h1>
 
         <table className="table mt-4">
-          <thead>
+          <thead className="bg-dark text-white">
             <tr>
               {isAdmin && <th>User Name</th>}
               <th>Program Name</th>
@@ -102,10 +100,11 @@ export const MembershipViewComponent = () => {
 
                 {isAdmin && (
                   <td
-                    title="delete membership"
+                    title="Delete membership"
                     onClick={() => onDeleteHandler(membership)}
+                    style={{ cursor: "pointer" }}
                   >
-                    ❌
+                    <button className="btn btn-danger">Delete</button>
                   </td>
                 )}
               </tr>
@@ -116,3 +115,5 @@ export const MembershipViewComponent = () => {
     </>
   );
 };
+
+export default MembershipViewComponent;

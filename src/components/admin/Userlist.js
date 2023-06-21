@@ -53,39 +53,44 @@ const Userlist = () => {
       <AdminNav />
       <br />
       <br />
-      <table className="container table table-striped ">
-        <thead>
-          <tr>
-            <th scope="col">UserId</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone No.</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Join Date</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        {userData !== null &&
-          userData.map((user) => (
-            <tbody key={user.userId}>
-              <tr>
-                <th scope="row">{user.userId}</th>
-                <td>
-                  {user.firstName} {user.lastName}
-                </td>
-                <td>{user.email}</td>
-                <td>{user.phoneNumber}</td>
-                <td>{user.gender}</td>
-                <td>{user.joinDate}</td>
-                <td>
-                  <button onClick={() => deleteUser(user.userId)}>
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-      </table>
+      <div className="container">
+        <table className="table table-striped">
+          <thead className="bg-dark text-white">
+            <tr>
+              <th scope="col">UserId</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone No.</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Join Date</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userData !== null &&
+              userData.map((user) => (
+                <tr key={user.userId}>
+                  <td>{user.userId}</td>
+                  <td>
+                    {user.firstName} {user.lastName}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>{user.phoneNumber}</td>
+                  <td>{user.gender}</td>
+                  <td>{user.joinDate}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteUser(user.userId)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

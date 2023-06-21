@@ -8,12 +8,14 @@ export const Login = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const { loggedIn } = useUser();
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     let { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
+    setError("");
   };
 
   const onSubmitHandler = async (e) => {
@@ -31,11 +33,14 @@ export const Login = () => {
         console.log("data submitted");
         loggedIn(data.roleId, data);
         navigate("/dashboard");
+      } else {
+        setError("Invalid email or password");
       }
     } catch (error) {
-      console.log("Invalid email or password");
+      setError("An error occurred. Please try again.");
     }
   };
+
   return (
     <>
       <Navbar />
@@ -54,12 +59,18 @@ export const Login = () => {
 
                     <input
                       type="email"
-                      className="form-control form-control-lg"
+                      className={`form-control form-control-lg ${
+                        error && form.email === "" ? "is-invalid" : ""
+                      }`}
                       name="email"
-                      value={form["email"]}
+                      value={form.email}
                       onChange={onChangeHandler}
                       required
+                      style={{ borderRadius: "0.5rem" }}
                     />
+                    {error && form.email === "" && (
+                      <div className="invalid-feedback">{error}</div>
+                    )}
                   </div>
 
                   <div className="form-outline mb-4">
@@ -72,20 +83,30 @@ export const Login = () => {
 
                     <input
                       type="password"
-                      className="form-control form-control-lg"
+                      className={`form-control form-control-lg ${
+                        error && form.password === "" ? "is-invalid" : ""
+                      }`}
                       name="password"
                       value={form.password}
                       onChange={onChangeHandler}
                       required
+                      style={{ borderRadius: "0.5rem" }}
                     />
+                    {error && form.password === "" && (
+                      <div className="invalid-feedback">{error}</div>
+                    )}
                   </div>
 
-                  <div className="form-check text-center">
+                  <div className="form-check text-center mb-4">
                     <span>New user? </span>
                     <Link to="/register">Register</Link>
                   </div>
-                  <br />
-                  <button className="btn btn-primary" type="submit">
+
+                  <button
+                    className="btn btn-primary btn-lg w-100"
+                    type="submit"
+                    style={{ borderRadius: "0.5rem" }}
+                  >
                     Login
                   </button>
                 </div>

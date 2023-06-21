@@ -64,162 +64,167 @@ const Register = () => {
                 <div className="card-body p-5 text-center">
                   <h3 className="mb-5">Register</h3>
 
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlFor="firstName"
-                    >
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="firstName">
                       First Name
                     </label>
-
-                    <input
-                      type="text"
-                      className="form-control form-control-lg"
-                      name="firstName"
-                      required
-                      value={form["firstName"]}
-                      onChange={onChangeHandler}
-                    />
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        name="firstName"
+                        required
+                        value={form.firstName}
+                        onChange={onChangeHandler}
+                      />
+                    </div>
                   </div>
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlFor="lastName"
-                    >
+
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="lastName">
                       Last Name
                     </label>
-
-                    <input
-                      type="text"
-                      className="form-control form-control-lg"
-                      name="lastName"
-                      value={form["lastName"]}
-                      onChange={onChangeHandler}
-                      required
-                    />
+                    <div className="col-lg-9">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        name="lastName"
+                        value={form.lastName}
+                        onChange={onChangeHandler}
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlFor="email">
+
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="email">
                       Email
                     </label>
-
-                    <input
-                      type="email"
-                      className="form-control form-control-lg"
-                      name="email"
-                      value={form["email"]}
-                      onChange={onChangeHandler}
-                      required
-                    />
+                    <div className="col-lg-9">
+                      <input
+                        type="email"
+                        className="form-control form-control-lg"
+                        name="email"
+                        value={form.email}
+                        onChange={onChangeHandler}
+                        required
+                      />
+                    </div>
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlFor="password"
-                    >
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="password">
                       Password
                     </label>
-
-                    <input
-                      type="password"
-                      className="form-control form-control-lg"
-                      name="password"
-                      value={form.password}
-                      onChange={onChangeHandler}
-                      required
-                    />
+                    <div className="col-lg-9">
+                      <input
+                        type="password"
+                        className="form-control form-control-lg"
+                        name="password"
+                        value={form.password}
+                        onChange={onChangeHandler}
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className="form-outline mb-4">
-                    <label className="float-start" htmlFor="gender">
+
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="gender">
                       Gender
                     </label>
-                    <br />
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        value="Male"
-                        name="gender"
-                        id="flexRadioDefault1"
-                        onChange={onChangeHandler}
-                      />
-                      <label className="form-check-label" htmlFor="male">
-                        Male
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        value="Female"
-                        name="gender"
-                        id="flexRadioDefault2"
-                        onChange={onChangeHandler}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexRadioDefault2"
-                      >
-                        Female
-                      </label>
+                    <div className="col-lg-9">
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          value="Male"
+                          name="gender"
+                          id="flexRadioDefault1"
+                          onChange={onChangeHandler}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="flexRadioDefault1"
+                        >
+                          Male
+                        </label>
+                      </div>
+                      <div className="form-check form-check-inline">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          value="Female"
+                          name="gender"
+                          id="flexRadioDefault2"
+                          onChange={onChangeHandler}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="flexRadioDefault2"
+                        >
+                          Female
+                        </label>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlFor="dateOfBirth"
-                    >
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="dateOfBirth">
                       Date of Birth
                     </label>
-
-                    <input
-                      type="date"
-                      className="form-control form-control-lg"
-                      name="dateOfBirth"
-                      value={form.dob}
-                      onChange={onChangeHandler}
-                      required
-                    />
+                    <div className="col-lg-9">
+                      <input
+                        type="date"
+                        className="form-control form-control-lg"
+                        name="dateOfBirth"
+                        value={form.dateOfBirth}
+                        onChange={onChangeHandler}
+                        required
+                      />
+                    </div>
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlFor="contact">
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="phoneNumber">
                       Contact No.
                     </label>
-
-                    <input
-                      type="tel"
-                      placeholder="123-45-678"
-                      maxLength={10}
-                      className="form-control form-control-lg"
-                      name="phoneNumber"
-                      value={form.phoneNumber}
-                      onChange={onChangeHandler}
-                      required
-                    />
+                    <div className="col-lg-9">
+                      <input
+                        type="tel"
+                        placeholder="123-45-678"
+                        maxLength={10}
+                        className="form-control form-control-lg"
+                        name="phoneNumber"
+                        value={form.phoneNumber}
+                        onChange={onChangeHandler}
+                        required
+                      />
+                    </div>
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlFor="address">
+                  <div className="row mb-4">
+                    <label className="col-4 col-lg-3 col-form-label text-lg-end" htmlFor="address">
                       Address
                     </label>
-                    <textarea
-                      className="form-control form-control-lg"
-                      name="address"
-                      value={form.address}
-                      onChange={onChangeHandler}
-                      required
-                    ></textarea>
+                    <div className="col-lg-9">
+                      <textarea
+                        className="form-control form-control-lg"
+                        name="address"
+                        value={form.address}
+                        onChange={onChangeHandler}
+                        required
+                      ></textarea>
+                    </div>
                   </div>
 
                   <div className="form-check text-center">
                     <span>Already a user?</span>
                     <Link to="/login">Login Here</Link>
                   </div>
+
                   <br />
-                  <button className="btn btn-primary " type="submit">
+
+                  <button className="btn btn-primary" type="submit">
                     Register
                   </button>
                 </div>
@@ -231,4 +236,5 @@ const Register = () => {
     </>
   );
 };
+
 export default Register;

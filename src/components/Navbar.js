@@ -1,6 +1,4 @@
 import { useUser } from "../hooks/useUserRole";
-import "./css/Navbar.css";
-// import Login from './Login';
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
@@ -14,8 +12,8 @@ const Navbar = (props) => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
           <Link className="navbar-brand" to="/dashboard">
             PowerHouse Fitness
           </Link>
@@ -31,26 +29,25 @@ const Navbar = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div className="navbar-nav" style={{ width: "100%" }}>
-              <Link className="nav-link active" aria-current="page" to="/about">
+            <div className="navbar-nav ms-auto">
+              <Link className="nav-link" to="/about">
                 About
               </Link>
-              <Link className="nav-link active" to="/workouts">
+              <Link className="nav-link" to="/workouts">
                 Workouts
               </Link>
-              <Link className="nav-link active" to="/contactus">
+              <Link className="nav-link" to="/contactus">
                 Contact Us
               </Link>
-              <div style={{ display: "flex", marginLeft: "auto" }}>
-                <Link className="nav-link active" to="/login">
+              <div className="d-flex">
+                <Link className="nav-link" to="/login">
                   Login
                 </Link>
-                <Link className="nav-link active" to="/register">
+                <Link className="nav-link" to="/register">
                   Register
                 </Link>
-
                 {info.isLoggedIn && (
-                  <Link className="nav-link active" onClick={onLogoutHandler}>
+                  <Link className="nav-link" onClick={onLogoutHandler}>
                     Logout
                   </Link>
                 )}
@@ -62,4 +59,5 @@ const Navbar = (props) => {
     </>
   );
 };
+
 export default Navbar;

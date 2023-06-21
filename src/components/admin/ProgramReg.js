@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import { useUser } from "../hooks/useUserRole";
 import AdminNav from "./Admin_Nav";
+
 const ProgramReg = () => {
   const isUpdateMode = window.location.pathname.includes("/program/update");
-  const [trainer, settrainer] = useState([]);
+  const [trainer, setTrainer] = useState([]);
   const [form, setForm] = useState({
     name: "",
     duration: "",
@@ -14,10 +14,10 @@ const ProgramReg = () => {
   });
 
   const params = useParams();
-  console.log(params);
 
   useEffect(() => {
     if (!isUpdateMode) return;
+
     fetch(`https://localhost:7255/api/TrainingProgram/${params.id}`)
       .then((response) => response.json())
       .then((t) => setForm(t));
@@ -26,13 +26,13 @@ const ProgramReg = () => {
   useEffect(() => {
     fetch("https://localhost:7255/api/Trainers")
       .then((response) => response.json())
-      .then((trainer) => settrainer(trainer));
+      .then((trainers) => setTrainer(trainers));
   }, []);
 
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
-    let { name, value } = e.target;
+    const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
   };
 
@@ -49,6 +49,7 @@ const ProgramReg = () => {
           },
         }
       );
+
       if (response.ok) {
         console.log("data submitted");
         navigate("/programlist");
@@ -62,7 +63,7 @@ const ProgramReg = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://localhost:7255/api/TrainingProgram/" + params.id,
+        `https://localhost:7255/api/TrainingProgram/${params.id}`,
         {
           method: "PUT",
           body: JSON.stringify(form),
@@ -85,56 +86,55 @@ const ProgramReg = () => {
     <>
       <AdminNav />
       <form onSubmit={isUpdateMode ? onSubmitUpdateHandler : onSubmitHandler}>
-        <div className="container py-5 h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
+        <div className="container py-5">
+          <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-lg-6 col-xl-6">
               <div className="card shadow-2-strong">
                 <div className="card-body p-5 text-center">
                   <h3 className="mb-5">Program Register</h3>
 
-                  <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlfor="name">
+                  <div className="mb-4">
+                    <label htmlFor="name" className="form-label float-start">
                       Name
                     </label>
-
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className="form-control"
                       name="name"
                       required
-                      value={form["name"]}
+                      value={form.name}
                       onChange={onChangeHandler}
                     />
                   </div>
 
-                  <div className="form-outline mb-4">
+                  <div className="mb-4">
                     <label
+                      htmlFor="duration"
                       className="form-label float-start"
-                      htmlfor="duration"
                     >
                       Duration of Program
                     </label>
-
                     <input
                       type="tel"
                       placeholder="Number of months"
                       maxLength={3}
-                      className="form-control form-control-lg"
+                      className="form-control"
                       name="duration"
                       value={form.duration}
                       onChange={onChangeHandler}
                       required
                     />
                   </div>
-                  <div className="form-outline mb-4">
+
+                  <div className="mb-4">
                     <label
+                      htmlFor="description"
                       className="form-label float-start"
-                      htmlfor="description"
                     >
                       Description
                     </label>
                     <textarea
-                      className="form-control form-control-lg"
+                      className="form-control"
                       name="description"
                       value={form.description}
                       onChange={onChangeHandler}
@@ -142,16 +142,15 @@ const ProgramReg = () => {
                     ></textarea>
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlfor="cost">
+                  <div className="mb-4">
+                    <label htmlFor="cost" className="form-label float-start">
                       Cost of Program
                     </label>
-
                     <input
                       type="tel"
                       placeholder="Cost in rupee"
                       maxLength={6}
-                      className="form-control form-control-lg"
+                      className="form-control"
                       name="cost"
                       value={form.cost}
                       onChange={onChangeHandler}
@@ -159,19 +158,24 @@ const ProgramReg = () => {
                     />
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label className="form-label float-start" htmlfor="cost">
+                  <div className="mb-4">
+                    <label htmlFor="trainerId" className="form-label float-start">
                       Preferred Trainer
                     </label>
-                    <select name="trainerId" onChange={onChangeHandler}>
+                    <select
+                      className="form-select"
+                      name="trainerId"
+                      onChange={onChangeHandler}
+                    >
                       {trainer.map((t) => (
-                        <option value={t.trainerId}>{t.name}</option>
+                        <option key={t.trainerId} value={t.trainerId}>
+                          {t.name}
+                        </option>
                       ))}
                     </select>
                   </div>
 
-                  <br />
-                  <button className="btn btn-success " type="submit">
+                  <button className="btn btn-success" type="submit">
                     Register
                   </button>
                 </div>
@@ -183,4 +187,5 @@ const ProgramReg = () => {
     </>
   );
 };
+
 export default ProgramReg;

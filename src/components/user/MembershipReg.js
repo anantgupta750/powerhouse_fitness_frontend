@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../hooks/useUserRole";
-import Usernavbar from "./Usernavbar";
+import UserNavbar from "./Usernavbar";
+
 const MembershipReg = () => {
   const info = useUser();
-  console.log(info);
-  const [trainer, settrainer] = useState([]);
-  const [program, setprogram] = useState([]);
+  const navigate = useNavigate();
+  const [trainer, setTrainer] = useState([]);
+  const [program, setProgram] = useState([]);
   const [form, setForm] = useState({
     userId: info.user.userId,
     programId: "",
@@ -19,7 +20,7 @@ const MembershipReg = () => {
       .then((response) => response.json())
       .then((trainer) => {
         setForm((form) => ({ ...form, trainerId: trainer[0].trainerId }));
-        return settrainer(trainer);
+        setTrainer(trainer);
       });
   }, []);
 
@@ -27,15 +28,13 @@ const MembershipReg = () => {
     fetch("https://localhost:7255/api/TrainingProgram")
       .then((response) => response.json())
       .then((program) => {
-        setForm((form) => ({ ...form, programId: program[0].trainerId }));
-        return setprogram(program);
+        setForm((form) => ({ ...form, programId: program[0].programId }));
+        setProgram(program);
       });
   }, []);
 
-  const navigate = useNavigate();
-
   const onChangeHandler = (e) => {
-    let { name, value } = e.target;
+    const { name, value } = e.target;
     setForm((form) => ({ ...form, [name]: value }));
   };
 
@@ -50,61 +49,57 @@ const MembershipReg = () => {
         },
       });
       if (response.ok) {
-        console.log("data submitted");
+        console.log("Data submitted");
         navigate("/membership/view");
       }
     } catch (error) {
-      console.log("failed to submit data");
+      console.log("Failed to submit data");
     }
   };
 
   return (
     <>
-      <Usernavbar />
+      <UserNavbar />
       <form onSubmit={onSubmitHandler}>
-        <div className="container py-5 h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
+        <div className="container py-5">
+          <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-lg-6 col-xl-6">
               <div className="card shadow-2-strong">
-                <div className="card-body p-5 text-center">
-                  <h3 className="mb-5">Membership Register</h3>
+                <div className="card-body p-5">
+                  <h3 className="mb-5 text-center">Membership Register</h3>
 
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlfor="programId"
+                  <div className="mb-4">
+                    <label htmlFor="programId">Program Name</label>
+                    <select
+                      className="form-select form-select-lg"
+                      name="programId"
+                      onChange={onChangeHandler}
                     >
-                      Program Name
-                    </label>
-
-                    <select name="programId" onChange={onChangeHandler}>
-                      {program.map((t) => (
-                        <option value={t.programId}>{t.name}</option>
+                      {program.map((p) => (
+                        <option key={p.programId} value={p.programId}>
+                          {p.name}
+                        </option>
                       ))}
                     </select>
                   </div>
 
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlfor="trainerId"
+                  <div className="mb-4">
+                    <label htmlFor="trainerId">Trainer Name</label>
+                    <select
+                      className="form-select form-select-lg"
+                      name="trainerId"
+                      onChange={onChangeHandler}
                     >
-                      Trainer Name
-                    </label>
-
-                    <select name="trainerId" onChange={onChangeHandler}>
                       {trainer.map((t) => (
-                        <option value={t.trainerId}>{t.name}</option>
+                        <option key={t.trainerId} value={t.trainerId}>
+                          {t.name}
+                        </option>
                       ))}
                     </select>
                   </div>
-                  <div className="form-outline mb-4">
-                    <label
-                      className="form-label float-start"
-                      htmlfor="description"
-                    >
-                      Payment Details
-                    </label>
+
+                  <div className="mb-4">
+                    <label htmlFor="payment">Payment Details</label>
                     <textarea
                       className="form-control form-control-lg"
                       name="payment"
@@ -113,10 +108,12 @@ const MembershipReg = () => {
                       required
                     ></textarea>
                   </div>
-                  <br />
-                  <button className="btn btn-success " type="submit">
-                    Register
-                  </button>
+
+                  <div className="text-center">
+                    <button className="btn btn-success btn-lg" type="submit">
+                      Register
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,4 +123,5 @@ const MembershipReg = () => {
     </>
   );
 };
+
 export default MembershipReg;

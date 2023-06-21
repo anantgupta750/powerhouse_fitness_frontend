@@ -56,47 +56,48 @@ const Trainerlist = () => {
       <AdminNav />
       <br />
       <br />
-      <table className="container table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Trainer Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Phone No.</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Experience</th>
-            <th scope="col">Address</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        {trainerData !== null &&
-          trainerData.map((trainer) => (
-            <tbody key={trainer.trainerId}>
-              <tr>
-                <th scope="row">{trainer.trainerId}</th>
-                <td>{trainer.name}</td>
-                <td>{trainer.phone}</td>
-                <td>{trainer.gender}</td>
-                <td>{trainer.experience} Years</td>
-                <td>{trainer.address}</td>
-                <td>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => deleteTrainer(trainer.trainerId)}
-                  >
-                    Delete
-                  </button>
-                  {/* <button className="btn btn-primary" onClick={() => handleEdit(trainer)}>Update</button> */}
-                  <Link
-                    className="btn btn-primary"
-                    to={`/trainer/update/${trainer.trainerId}`}
-                  >
-                    Update
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-      </table>
+      <div className="container">
+        <table className="table table-striped">
+          <thead className="thead-dark">
+            <tr>
+              <th scope="col">Trainer Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Phone No.</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Experience</th>
+              <th scope="col">Address</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {trainerData !== null &&
+              trainerData.map((trainer) => (
+                <tr key={trainer.trainerId}>
+                  <td>{trainer.trainerId}</td>
+                  <td>{trainer.name}</td>
+                  <td>{trainer.phone}</td>
+                  <td>{trainer.gender}</td>
+                  <td>{trainer.experience} Years</td>
+                  <td>{trainer.address}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteTrainer(trainer.trainerId)}
+                    >
+                      Delete
+                    </button>
+                    <Link
+                      className="btn btn-primary ml-2"
+                      to={`/trainer/update/${trainer.trainerId}`}
+                    >
+                      Update
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
