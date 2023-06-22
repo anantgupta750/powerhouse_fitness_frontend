@@ -33,7 +33,7 @@ export const routes = [
   { path: "membership/view", Component: MembershipViewComponent },
   { path: "about", Component: About },
   { path: "workouts", Component: Workouts},
-  { path:"contactus", Component: Contactus},
+  { path: "contactus", Component: Contactus},
   { path: "carousel", Component:Carousel},
   { path: "usernav", Component: UserNav},
   { path: "adminnav", Component: AdminNav},

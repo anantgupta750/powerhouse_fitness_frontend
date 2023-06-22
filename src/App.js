@@ -12,14 +12,7 @@ import AdmMem_list from './components/admin/AdmMem_list';
 function App() {
   return (
     <>
-    <Navbar />
-    <Login /> 
-    <Register />
-    <Trainer />
-    <Program />
-    <Admin_Nav />
-    <User_Nav />
-    <AdmMem_list  />
+    
     </>
     
     
